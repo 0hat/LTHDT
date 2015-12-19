@@ -1,0 +1,38 @@
+
+**************ĐỌC DỮ LIỆU TỪ FILE "csdl-bk.csv"****************
+
+dòng đầu tiên của file:
+"SBD","HoTen","NgaySinh","KV","DT","UT","Toan","Van","Ly","Hoa","Sinh","Su","Dia","Anh","Nga","Phap","Trung","Duc","Nhat"
+
+dòng đầu tiên chứa tiêu đề các cột, gồm số báo danh, họ tên, ngày sinh, khu vực, dân tộc, đối tượng ưu tiên, sau đó là điểm các môn học gồn toán văn lý hóa sinh sử địa anh nga pháp trung đức nhật.
+các dòng từ dòng thứ 2 trở đi, mỗi dòng là 1 mẩu dữ liệu của 1 sinh viên, ví dụ:
+"KTA057540","Nguyen Thi Cao","1997/06/03","KV2","NDT2","Khong",7.5,5,6.75,7.5,NA,7.5,NA,3,NA,NA,NA,NA,NA
+giá trị của các trường lọc = công cụ filter của excel:
+Ngày sinh: d/m/y
+KV: KV1, KV2, KV2-NT, KV3
+UT: Khong, UT,
+DT: Khong, NDT1, NDT2
+Điểm thi: NA, Diem
+
+dữ liệu 1 sinh viên là 1 dòng, chia là 19 khối, trong đó từ sbd đến  ưu tiên là dữ liệu kiểu text được đóng trong dấu nháy kép. 13 khối sau dạng số (nếu có điểm môn đó), hoặc là chữ NA nếu không thi môn đó.
+các khối tin được phân cách bởi dấu phẩy ','
+
+******************* DỮ LIỆU TỪ FILE "dangkynv-bk.csv" *****************
+
+dòng đầu tiên của file chưa tên cột
+mỗi sinh viên được đăng ký 4 nguyện vọng
+cột đầu: số báo danh
+		các cặp từng đôi một các cột tiếp theo (2 và 3, 4 và 5, 6 và 7, 8 và 9), cột chẵn ghi mã ngành, cột lẻ cùng cặp với nó ghi các môn xét, gồm tên 3 môn và 1 chữ số ở cuối ghi thông tin về môn lấy hệ số 0 hoặc 1, chi tiết về môn hệ số xem ở file pdf về thông tin xét tuyển và cách tính điểm xét tuyển của các mã ngành.
+
+Lưu ý, hồ sơ trong file "dangkynv-bk.csv" và file "csdl-bk.csv" đã tương ứng theo đúng thứ tự.
+Một dữ liệu về nguyện vọng xét tuyển của 1 học sinh như sau:
+KTA056479	QT11	Toan,Ly,Hoa,0	KT12	Toan,Ly,Hoa,1	KT23	Toan,Ly,Hoa,1	KT31	Toan,Ly,Hoa,1
+Giá trị các trường lọc = công cụ filter của excel:
+Nv: CN1-2-3, KQ1-2-3, KT11-12-13-14, KT21-22-23, KT31-32-33, KT41-42, KT51-52, QT11-14, QT21, QT31-32, TA1-2
+- mỗi nv xét tuyển gồm có 3 môn, số 0 hoặc 1 để chỉ ra có môn hệ số hay không
+
+
+*********************ĐẦU RA YÊU CẦU*****************
+tạo cơ sở dữ liệu đầu ra ID.db, chứa bảng: nvxt(sbd varchar(9), nvso int, manv varchar(4), diemxt double precision)
+xử lý điểm của 100 hồ sơ, sv có ID xử lý các hồ sơ từ hồ sơ thứ ID*100 tới hồ sơ (ID +1)*100 -1
+tức xử lý các dòng từ dòng ID*100+1 tới dòng (ID+1)*100
